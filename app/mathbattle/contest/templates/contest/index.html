@@ -1,0 +1,18 @@
+{% extends 'contest/base_contest.html' %}
+
+{% block title %}
+  Контесты
+{% endblock %}
+
+{% block content %}
+  <h1>Список контестов</h1>
+  <ul>
+    {% for i in num_contest %}
+      <li>
+        <p>Контест {{ i|add:1 }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <p><a href="..">Перейти на главную</a></p>
+  <p>Хотите покинуть нас? <a href="../auth/logout/">Досвидания!</a></p>
+{% endblock %}
