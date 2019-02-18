@@ -2,8 +2,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Task
+from .models import Task, Solves
+from .forms import NumSolveForm
+
 def task(request, task_id):
     task = Task.objects.last()
-    print(task.text)
-    return HttpResponse(task.text)
+    if request.method == "POST":
+        form = NumSolveForm(request.POST)
+        if form.is_valid():
+            answer = form.cleaned_data['answer']
+            username = request.user.id
+            solve = Solves(username, answer, True)
+            solve.save()
+        return HttpResponse(render(request, 'contest/task.html', {"text" : task.text, "form" : form}))
+
+
+    else:
+        return HttpResponse(render(request, 'contest/task.html', {"text" : task.text, "form" : NumSolveForm()}))
