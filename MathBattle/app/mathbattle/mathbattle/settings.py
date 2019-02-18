@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'contest.apps.ContestConfig',
     'authorization.apps.AuthorizationConfig',
     'task.apps.TaskConfig',
-    'contest_page.apps.ContestPageConfig'
+    'contest_page.apps.ContestPageConfig',
+    'userprofile.apps.UserprofileConfig',
 ]
 
 MIDDLEWARE = [
