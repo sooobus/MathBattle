@@ -38,13 +38,8 @@ class UserRegisterForm(forms.ModelForm):
         ]
 
     def clean(self, *args, **kwargs):
-        #username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        #username_qs = User.objects.filter(username = username)
-        #email_qs = User.objects.filter(email = email)
-        # if username_qs.exists():
-        #    raise forms.ValidationError('Этот ник уже используется')
         email_qs = User.objects.filter(email=email)
         if email_qs.exists():
             raise forms.ValidationError(
