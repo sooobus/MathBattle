@@ -4,10 +4,10 @@ from django.template import loader
 
 from .models import Task, Solves
 from .forms import NumSolveForm
-from .сheker import Checker
+from .checker import Checker
 def task(request, task_id):
     task = Task.objects.all()[task_id - 1]
-    res = "You don't submit this task"
+    res = "You have not submitted this task."
     try:
         old_solves = Solves.objects.filter(username=request.user.id, task_id=task_id).all()
         res = "WA"
@@ -19,12 +19,12 @@ def task(request, task_id):
 
 
     if request.method == "POST":
-        res = "Something go wrong"
+        res = "Something went wrong"
         form = NumSolveForm(request.POST)
         if form.is_valid():
             answer = form.cleaned_data['answer']
             username = request.user.id
-            checker = Checker(task_id - 1)
+            checker = Checker(right_answer=Task.objects.all()[task_id - 1].right_answer, typetype=Task.objects.all()[task_id - 1].typetype)
             res = checker.check(answer)
             print(task_id)
             if (res == "OK"):
@@ -35,6 +35,6 @@ def task(request, task_id):
                 solve.save()
             print('add')
 
-        return HttpResponse(render(request, 'contest/task.html', {"title" : task.title, "text" : task.text, "form" : form, "res" : res}))
+        return HttpResponse(render(request, 'contest/task.html', {"title" : task.title, "text" : task.text, "form" : form, "res" : res, 'username' : request.user.username}))
     else:
-        return HttpResponse(render(request, 'contest/task.html', {"title" : task.title, "text" : task.text, "form" : NumSolveForm(), "res" : res}))
+        return HttpResponse(render(request, 'contest/task.html', {"title" : task.title, "text" : task.text, "form" : NumSolveForm(), "res" : res, 'username' : request.user.username}))

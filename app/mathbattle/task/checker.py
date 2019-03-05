@@ -1,17 +1,18 @@
 from .models import Task
+from sympy import simplify, cos, sin, expand, symbols, init_printing
+
 
 class Checker():
-    def __init__(self, task_id):
-        self.task_id = task_id
-        self.task_id = task_id
+    def __init__(self, right_answer, typetype):
+        self.right_answer = right_answer
         self.listOfNums = []
+        self.typetype = typetype
 
     def check(self, answer):
         try:
             Tasks = Task.objects.all()
-            typytype = Tasks[self.task_id].type
-            rans = Tasks[self.task_id].right_answer
-            from sympy import simplify, cos, sin, expand, symbols, init_printing
+            typytype = self.typetype
+            rans = self.right_answer
             x, y, z = symbols('x y z')
             init_printing(use_unicode=True)
             eval_str = 'simplify(({})-({}))'.format(rans, answer)

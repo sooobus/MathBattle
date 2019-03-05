@@ -7,10 +7,10 @@ from django.utils.timezone import now
 from task.models import Task, Solves
 def contest(request, contest_id):
     contest = Contest.objects.all()[contest_id - 1]
+    print(contest.dateED)
     task = Task.objects.all()
-    if (contest.dateST < now() and contest.dateED > now()):
-        tasks = [contest.task_1_id, contest.task_2_id, contest.task_3_id, contest.task_4_id, contest.task_5_id,
-                 contest.task_6_id]
+    if (contest.dateST < now() and contest.dateED > now() or True):
+        tasks = contest.tasks
         while (tasks[-1] == -1):
             tasks.pop()
         names = []
@@ -32,7 +32,7 @@ def contest(request, contest_id):
             print(str(e))
         print(res)
         template = loader.get_template('contest/contest_page_start.html')
-        return HttpResponse(template.render({"tasks": names, 'res' : res}, request))
+        return HttpResponse(template.render({"tasks": names, 'res' : res, 'username' : request.user.username}, request))
     elif contest.dateST > now() :
         template = loader.get_template('contest/contest_page_notstart.html')
         return HttpResponse(template.render({},request))

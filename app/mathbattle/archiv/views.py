@@ -9,5 +9,5 @@ def archive(request):
     for i in range(1, len(task)):
         task_href.append([i, task[i - 1].title])
     template = loader.get_template('contest/archive.html')
-    return HttpResponse(template.render({"tasks": task_href}, request))
+    return HttpResponse(template.render({"tasks": task_href, 'username' : request.user.username}, request))
 
