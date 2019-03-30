@@ -70,13 +70,13 @@
                            {% for i in tasks %}
                                 <tr style="border-bottom-style: solid; border-bottom-width: 1px; padding-bottom: 10px">
                               <td style="border-right-style: solid; border-right-width: 1px; padding-bottom: 10px">
-                                 <a href="/contest_page/{{ i.1 }}">A</a>
+                                 <h5>{{ i.2 }}</h5>
                               </td>
                               <td style="border-right-style: solid; border-right-width: 1px; padding-bottom: 10px">
                                  <a href="/task/{{ i.1}}">Задача {{i.0}}</a>
                               </td>
-                              
-                              
+
+
                            </tr>
 
                             {% endfor %}

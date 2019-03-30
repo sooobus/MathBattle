@@ -11,5 +11,4 @@ def contest(request):
     for i in range(1, len(contests) + 1):
         hrefs.append([i, contests[i - 1].dateST.strftime('%m-%d %H:%M'), str(contests[i - 1].dateED - contests[i - 1].dateST)])
 
-    print(hrefs)
     return render(request,'contest/index.html', context={'num_contest': hrefs, 'username' : request.user.username})
