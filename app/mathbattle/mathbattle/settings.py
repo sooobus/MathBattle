@@ -25,7 +25,7 @@ SECRET_KEY = 'saoy*kd&8w*t$^qgwemy+ioz9x)2t4p0m+^z-*eg1vgd40jysf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'task.apps.TaskConfig',
     'contest_page.apps.ContestPageConfig',
     'archiv.apps.ArchivConfig',
+    'userprofile.apps.UserprofileConfig'
 ]
 
 MIDDLEWARE = [
@@ -81,8 +82,13 @@ WSGI_APPLICATION = 'mathbattle.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME' : 'db',
+        'USER' : 'podvorniy',
+        'Password' : 'Podvorniy1303©',
+        'HOST' : 'localhost',
+        'PORT' : '5432'
+
     }
 }
 
